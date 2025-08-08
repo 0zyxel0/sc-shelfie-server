@@ -1,0 +1,47 @@
+services:
+  shelfie-server:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      # STRAPI Server Config
+      STRAPI_HOST: 0.0.0.0
+      STRAPI_PORT: 1337
+      STRAPI_BASEURL: ${STRAPI_BASEURL}
+      # SECRET KEYS
+      ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET}
+      API_TOKEN_SALT: ${API_TOKEN_SALT} 
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY}
+      APP_KEYS: ${APP_KEYS}
+      TRANSFER_TOKEN_SALT: ${TRANSFER_TOKEN_SALT}      
+      REFRESH_SECRET: ${REFRESH_SECRET}
+      REFRESH_TOKEN_EXPIRES: ${REFRESH_TOKEN_EXPIRES}
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_SECRET_EXPIRES: ${JWT_SECRET_EXPIRES}
+      # STRAPI DATABASE CONFIG
+      DATABASE_CLIENT: ${DATABASE_CLIENT}
+      DATABASE_HOST: ${DATABASE_HOST}
+      DATABASE_PORT: ${DATABASE_PORT}
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_USERNAME: ${DATABASE_USERNAME}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      # SENDGRID CONFIG
+      SENDGRID_API_KEY: ${SENDGRID_API_KEY}
+      SENDGRID_DEFAULT_FROM: ${SENDGRID_DEFAULT_FROM}
+      SENDGRID_DEFAULT_REPLYTO: ${SENDGRID_DEFAULT_REPLYTO}
+      # MEILI SEARCH CONFIG
+      MEILI_SEARCH_BASEURL: ${MEILI_SEARCH_BASEURL}
+      MEILI_SEARCH_APIKEY: ${MEILI_SEARCH_APIKEY}
+      # GCP Settings      
+    ports:
+      - ${STRAPI_PORT}:1337
+    # enable only on local deployments
+    # volumes:
+    #   - ./public/uploads:/usr/src/app/public/uploads
+    healthcheck:
+      test: ["CMD", "curl", "-f", "${STRAPI_BASEURL}:${STRAPI_PORT}/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
