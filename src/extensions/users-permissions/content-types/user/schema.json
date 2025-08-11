@@ -78,6 +78,12 @@
         "videos",
         "audios"
       ]
+    },
+    "items": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::item.item",
+      "mappedBy": "user"
     }
   }
 }

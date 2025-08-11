@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "serieses",
+  "info": {
+    "singularName": "series",
+    "pluralName": "serieses",
+    "displayName": "Series"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "Anime",
+        "Manga",
+        "Video Game",
+        "TV Show"
+      ]
+    },
+    "items": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::item.item",
+      "mappedBy": "series"
+    }
+  }
+}
