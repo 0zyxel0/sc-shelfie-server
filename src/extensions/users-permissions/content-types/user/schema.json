@@ -84,6 +84,18 @@
       "relation": "oneToMany",
       "target": "api::item.item",
       "mappedBy": "user"
+    },
+    "comments": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::comment.comment",
+      "mappedBy": "user"
+    },
+    "likedItems": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::item.item",
+      "inversedBy": "likedBy"
     }
   }
 }
