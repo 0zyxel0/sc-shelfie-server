@@ -96,6 +96,13 @@
       "relation": "manyToMany",
       "target": "api::item.item",
       "inversedBy": "likedBy"
+    },
+    "birthDate": {
+      "type": "date"
+    },
+    "emailVerified": {
+      "type": "boolean",
+      "default": false
     }
   }
 }
