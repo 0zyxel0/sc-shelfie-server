@@ -1105,6 +1105,14 @@ export interface PluginUsersPermissionsUser
         minLength: 6;
       }>;
     emailVerified: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    followers: Schema.Attribute.Relation<
+      'manyToMany',
+      'plugin::users-permissions.user'
+    >;
+    following: Schema.Attribute.Relation<
+      'manyToMany',
+      'plugin::users-permissions.user'
+    >;
     items: Schema.Attribute.Relation<'oneToMany', 'api::item.item'>;
     likedItems: Schema.Attribute.Relation<'manyToMany', 'api::item.item'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
