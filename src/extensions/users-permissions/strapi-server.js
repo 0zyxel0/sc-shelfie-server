@@ -42,6 +42,25 @@ module.exports = (plugin) => {
     return ctx.send({ message: "Successfully unfollowed user." });
   };
 
+  plugin.controllers.user.resendVerificationEmail = async (ctx) => {
+    const { id: currentUserId, email, confirmed } = ctx.state.user; // Get authenticated user's info
+
+    if (confirmed) {
+      return ctx.badRequest("This account is already confirmed.");
+    }
+
+    try {
+      // Use Strapi's built-in service to send the confirmation email
+      await strapi.service("plugin::users-permissions.user").sendConfirmationEmail({
+        id: currentUserId,
+        email,
+      });
+      return ctx.send({ message: "Confirmation email resent successfully." });
+    } catch (err) {
+      return ctx.badRequest(err.message);
+    }
+  };
+
   // --- 2. Create the custom routes ---
   plugin.routes["content-api"].routes.push(
     {
@@ -56,6 +75,14 @@ module.exports = (plugin) => {
       method: "POST",
       path: "/users/:id/unfollow",
       handler: "user.unfollow",
+      config: {
+        prefix: "",
+      },
+    },
+    {
+      method: "POST",
+      path: "/users/resend-verification-email",
+      handler: "user.resendVerificationEmail",
       config: {
         prefix: "",
       },

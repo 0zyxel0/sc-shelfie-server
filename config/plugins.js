@@ -39,10 +39,22 @@ module.exports = ({ env }) => ({
 
         // Meilisearch index settings
         settings: {
-          searchableAttributes: ["name", "character", "series", "manufacturer", "tags", "categories"],
+          searchableAttributes: ["name", "character", "series", "manufacturer", "itags", "categories"],
           sortableAttributes: ["createdAt"],
           filterableAttributes: ["status", "manufacturer", "character", "series"],
         },
+      },
+    },
+  },
+  email: {
+    config: {
+      provider: "sendgrid",
+      providerOptions: {
+        apiKey: env("SENDGRID_API_KEY"),
+      },
+      settings: {
+        defaultFrom: env("SENDGRID_DEFAULT_FROM", "noreply@yourdomain.com"),
+        defaultReplyTo: env("SENDGRID_DEFAULT_REPLY_TO", "noreply@yourdomain.com"),
       },
     },
   },

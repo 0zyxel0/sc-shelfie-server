@@ -1,13 +1,13 @@
 {
   "kind": "collectionType",
-  "collectionName": "tags",
+  "collectionName": "itags",
   "info": {
-    "singularName": "tag",
-    "pluralName": "tags",
-    "displayName": "Tag"
+    "singularName": "itag",
+    "pluralName": "itags",
+    "displayName": "Itag"
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
@@ -20,7 +20,7 @@
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::item.item",
-      "inversedBy": "tags"
+      "inversedBy": "itags"
     }
   }
 }
