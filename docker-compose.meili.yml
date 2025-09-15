@@ -1,0 +1,26 @@
+services:
+  meilisearch:
+    image: getmeili/meilisearch:latest
+    container_name: meilisearch
+    restart: always
+    ports:
+      - "7700:7700"
+    environment:
+      - MEILI_MASTER_KEY=yourStrongSecretKey
+    volumes:
+      - meili_data:/meili_data
+
+#   meilisearch-ui:
+#     image: meilisearch/meilisearch-dashboard
+#     container_name: meilisearch-ui
+#     restart: always
+#     ports:
+#       - "8850:8080"
+#     environment:
+#       - VITE_MEILISEARCH_HOST=http://meilisearch:7700
+#       - VITE_MEILISEARCH_API_KEY=yourStrongSecretKey
+#     depends_on:
+#       - meilisearch
+
+volumes:
+  meili_data:
