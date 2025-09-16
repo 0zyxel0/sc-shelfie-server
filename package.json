@@ -18,6 +18,7 @@
     "@strapi-community/strapi-provider-upload-google-cloud-storage": "^5.0.5",
     "@strapi/plugin-cloud": "5.19.0",
     "@strapi/plugin-users-permissions": "5.19.0",
+    "@strapi/provider-email-sendgrid": "^5.23.4",
     "@strapi/strapi": "5.19.0",
     "better-sqlite3": "^12.2.0",
     "pg": "8.8.0",

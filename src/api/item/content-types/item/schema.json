@@ -99,10 +99,10 @@
       "target": "plugin::users-permissions.user",
       "mappedBy": "likedItems"
     },
-    "tags": {
+    "itags": {
       "type": "relation",
       "relation": "manyToMany",
-      "target": "api::tag.tag",
+      "target": "api::itag.itag",
       "mappedBy": "items"
     }
   }
