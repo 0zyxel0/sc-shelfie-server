@@ -115,6 +115,14 @@
       "relation": "manyToMany",
       "target": "plugin::users-permissions.user",
       "mappedBy": "followers"
+    },
+    "subscriptionType": {
+      "type": "enumeration",
+      "default": "Free",
+      "enum": [
+        "Free",
+        "Premium"
+      ]
     }
   }
 }
