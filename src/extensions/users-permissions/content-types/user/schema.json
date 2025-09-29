@@ -123,6 +123,12 @@
         "Free",
         "Premium"
       ]
+    },
+    "user_tag_votes": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::user-tag-vote.user-tag-vote",
+      "mappedBy": "user"
     }
   }
 }
