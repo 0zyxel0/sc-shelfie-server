@@ -495,6 +495,11 @@ export interface ApiItagItag extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    user_tag_votes: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::user-tag-vote.user-tag-vote'
+    >;
+    voteCount: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
   };
 }
 
@@ -630,6 +635,39 @@ export interface ApiSeriesSeries extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+  };
+}
+
+export interface ApiUserTagVoteUserTagVote extends Struct.CollectionTypeSchema {
+  collectionName: 'user_tag_votes';
+  info: {
+    displayName: 'UserTagVote';
+    pluralName: 'user-tag-votes';
+    singularName: 'user-tag-vote';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    itag: Schema.Attribute.Relation<'manyToOne', 'api::itag.itag'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::user-tag-vote.user-tag-vote'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    voteType: Schema.Attribute.Enumeration<['upvote', 'downvote']>;
   };
 }
 
@@ -1141,6 +1179,10 @@ export interface PluginUsersPermissionsUser
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    user_tag_votes: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::user-tag-vote.user-tag-vote'
+    >;
     username: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique &
@@ -1167,6 +1209,7 @@ declare module '@strapi/strapi' {
       'api::item.item': ApiItemItem;
       'api::manufacturer.manufacturer': ApiManufacturerManufacturer;
       'api::series.series': ApiSeriesSeries;
+      'api::user-tag-vote.user-tag-vote': ApiUserTagVoteUserTagVote;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

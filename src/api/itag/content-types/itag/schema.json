@@ -21,6 +21,16 @@
       "relation": "manyToMany",
       "target": "api::item.item",
       "inversedBy": "itags"
+    },
+    "voteCount": {
+      "type": "integer",
+      "default": 0
+    },
+    "user_tag_votes": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::user-tag-vote.user-tag-vote",
+      "mappedBy": "itag"
     }
   }
 }

@@ -1,0 +1,34 @@
+{
+  "kind": "collectionType",
+  "collectionName": "user_tag_votes",
+  "info": {
+    "singularName": "user-tag-vote",
+    "pluralName": "user-tag-votes",
+    "displayName": "UserTagVote"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "user_tag_votes"
+    },
+    "itag": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::itag.itag",
+      "inversedBy": "user_tag_votes"
+    },
+    "voteType": {
+      "type": "enumeration",
+      "enum": [
+        "upvote",
+        "downvote"
+      ]
+    }
+  }
+}
