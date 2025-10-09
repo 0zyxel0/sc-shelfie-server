@@ -638,6 +638,45 @@ export interface ApiSeriesSeries extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiSubscriptionSubscription
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'subscriptions';
+  info: {
+    displayName: 'Subscription';
+    pluralName: 'subscriptions';
+    singularName: 'subscription';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    expiresAt: Schema.Attribute.DateTime;
+    lastCheckoutSessionId: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::subscription.subscription'
+    > &
+      Schema.Attribute.Private;
+    plan: Schema.Attribute.Enumeration<['monthly', 'annually']>;
+    providerSubscriptionId: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    subscriptionStatus: Schema.Attribute.Enumeration<
+      ['active', 'cancelled', 'past_due', 'inactive']
+    >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    user: Schema.Attribute.Relation<
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+  };
+}
+
 export interface ApiUserTagVoteUserTagVote extends Struct.CollectionTypeSchema {
   collectionName: 'user_tag_votes';
   info: {
@@ -1174,6 +1213,10 @@ export interface PluginUsersPermissionsUser
       'manyToOne',
       'plugin::users-permissions.role'
     >;
+    subscription: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::subscription.subscription'
+    >;
     subscriptionType: Schema.Attribute.Enumeration<['Free', 'Premium']> &
       Schema.Attribute.DefaultTo<'Free'>;
     updatedAt: Schema.Attribute.DateTime;
@@ -1209,6 +1252,7 @@ declare module '@strapi/strapi' {
       'api::item.item': ApiItemItem;
       'api::manufacturer.manufacturer': ApiManufacturerManufacturer;
       'api::series.series': ApiSeriesSeries;
+      'api::subscription.subscription': ApiSubscriptionSubscription;
       'api::user-tag-vote.user-tag-vote': ApiUserTagVoteUserTagVote;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
