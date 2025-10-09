@@ -129,6 +129,12 @@
       "relation": "oneToMany",
       "target": "api::user-tag-vote.user-tag-vote",
       "mappedBy": "user"
+    },
+    "subscription": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::subscription.subscription",
+      "mappedBy": "user"
     }
   }
 }
