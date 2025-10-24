@@ -21,7 +21,7 @@ module.exports = [
       enabled: true,
       headers: "*",
       // Your Nuxt frontend's production and development URLs
-      origin: ["http://localhost:3000", "https://sc-shelfie-web-751939145235.asia-southeast1.run.app"],
+      origin: ["http://localhost:3000", "https://sc-shelfie-web-751939145235.asia-southeast1.run.app","https://app.shelfie.scribblecubes.ph"],
       // --- THIS IS THE CRITICAL ADDITION ---
       // This tells the browser that it's safe to send cookies to Strapi.
       credentials: true,
