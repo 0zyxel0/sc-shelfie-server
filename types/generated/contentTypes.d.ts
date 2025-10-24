@@ -527,7 +527,7 @@ export interface ApiItemItem extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    description: Schema.Attribute.Blocks;
+    description: Schema.Attribute.RichText;
     isPrivate: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
     itags: Schema.Attribute.Relation<'manyToMany', 'api::itag.itag'>;
     itemStatus: Schema.Attribute.Enumeration<
@@ -557,6 +557,7 @@ export interface ApiItemItem extends Struct.CollectionTypeSchema {
         },
         number
       >;
+    review: Schema.Attribute.RichText;
     series: Schema.Attribute.Relation<'manyToOne', 'api::series.series'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &

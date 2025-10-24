@@ -14,9 +14,6 @@
     "name": {
       "type": "string"
     },
-    "description": {
-      "type": "blocks"
-    },
     "itemStatus": {
       "type": "enumeration",
       "required": true,
@@ -104,6 +101,12 @@
       "relation": "manyToMany",
       "target": "api::itag.itag",
       "mappedBy": "items"
+    },
+    "review": {
+      "type": "richtext"
+    },
+    "description": {
+      "type": "richtext"
     }
   }
 }
