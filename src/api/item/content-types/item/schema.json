@@ -107,6 +107,37 @@
     },
     "description": {
       "type": "richtext"
+    },
+    "isForSale": {
+      "type": "boolean",
+      "default": false
+    },
+    "listingPrice": {
+      "type": "decimal"
+    },
+    "itemCondition": {
+      "type": "enumeration",
+      "enum": [
+        "New",
+        "Like New",
+        "Used - Good",
+        "Used - Fair"
+      ]
+    },
+    "shippingDetails": {
+      "type": "text"
+    },
+    "listingStatus": {
+      "type": "enumeration",
+      "default": "Available",
+      "enum": [
+        "Available",
+        "Sold",
+        "Pending"
+      ]
+    },
+    "sellerContactInfo": {
+      "type": "text"
     }
   }
 }

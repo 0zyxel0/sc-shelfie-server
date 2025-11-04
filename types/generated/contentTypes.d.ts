@@ -528,8 +528,12 @@ export interface ApiItemItem extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     description: Schema.Attribute.RichText;
+    isForSale: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     isPrivate: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
     itags: Schema.Attribute.Relation<'manyToMany', 'api::itag.itag'>;
+    itemCondition: Schema.Attribute.Enumeration<
+      ['New', 'Like New', 'Used - Good', 'Used - Fair']
+    >;
     itemStatus: Schema.Attribute.Enumeration<
       ['Owned', 'Wishlist', 'Pre-ordered', 'For Sale', 'Sold']
     > &
@@ -538,6 +542,11 @@ export interface ApiItemItem extends Struct.CollectionTypeSchema {
       'manyToMany',
       'plugin::users-permissions.user'
     >;
+    listingPrice: Schema.Attribute.Decimal;
+    listingStatus: Schema.Attribute.Enumeration<
+      ['Available', 'Sold', 'Pending']
+    > &
+      Schema.Attribute.DefaultTo<'Available'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::item.item'> &
       Schema.Attribute.Private;
@@ -558,7 +567,9 @@ export interface ApiItemItem extends Struct.CollectionTypeSchema {
         number
       >;
     review: Schema.Attribute.RichText;
+    sellerContactInfo: Schema.Attribute.Text;
     series: Schema.Attribute.Relation<'manyToOne', 'api::series.series'>;
+    shippingDetails: Schema.Attribute.Text;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
