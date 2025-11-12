@@ -42,6 +42,55 @@ module.exports = (plugin) => {
     return ctx.send({ message: "Successfully unfollowed user." });
   };
 
+  plugin.controllers.user.updateMeProfile = async (ctx) => {
+    const userId = ctx.state.user?.id;
+    if (!userId) {
+      return ctx.unauthorized("Authentication required.");
+    }
+
+    // Extract payload from the request body
+    const { displayName, birthDate, profilePicture } = ctx.request.body;
+
+    // Optional: Basic field validation
+    if (!displayName || !birthDate) {
+      return ctx.badRequest("Display Name and Birth Date are required.");
+    }
+
+    try {
+      const updateData = {
+        displayName,
+        birthDate: birthDate,
+      };
+
+      // Handle the optional profile picture update
+      // profilePicture should be an integer ID or null
+      if (profilePicture !== undefined) {
+        updateData.profilePicture = profilePicture;
+      }
+
+      // Use entityService to update the user model
+      const updatedUser = await strapi.entityService.update(
+        "plugin::users-permissions.user", // Target the user model
+        userId,
+        {
+          data: updateData,
+          // IMPORTANT: Populate necessary relations for the front end (e.g., profile picture)
+          populate: ["profilePicture"],
+        }
+      );
+
+      // Return the updated user object
+      return updatedUser;
+    } catch (error) {
+      strapi.log.error("Extended user profile update failed:", error);
+      // Check if it's a validation error (e.g., uniqueness constraint)
+      if (error.details?.errors) {
+        return ctx.badRequest("Validation failed.", { details: error.details.errors });
+      }
+      return ctx.internalServerError("Profile update failed due to a server error.");
+    }
+  };
+
   plugin.controllers.user.resendVerificationEmail = async (ctx) => {
     const { id: currentUserId, email, confirmed } = ctx.state.user; // Get authenticated user's info
 
@@ -83,6 +132,14 @@ module.exports = (plugin) => {
       method: "POST",
       path: "/users/resend-verification-email",
       handler: "user.resendVerificationEmail",
+      config: {
+        prefix: "",
+      },
+    },
+    {
+      method: "PUT",
+      path: "/users/me/profile", // A clear, dedicated route
+      handler: "user.updateMeProfile", // Handler points to the method created above
       config: {
         prefix: "",
       },
